@@ -1,113 +1,127 @@
-# node-typescript-boilerplate
+<p align="center">
+<img width="615" alt="image" src="https://github.com/ongteckwu/Revice/assets/3834724/bdb660c2-e534-4525-8460-22215c32c8ed">
+</p>
 
-[![Sponsor][sponsor-badge]][sponsor]
-[![TypeScript version][ts-badge]][typescript-5-0]
-[![Node.js version][nodejs-badge]][nodejs]
-[![APLv2][license-badge]][license]
-[![Build Status - GitHub Actions][gha-badge]][gha-ci]
+<p align="center">
+<b>Revice</b> is a high-level regex transpiler library for readability and reusability.
+</p>
 
-👩🏻‍💻 Developer Ready: A comprehensive template. Works out of the box for most [Node.js][nodejs] projects.
+## Current Progress
 
-🏃🏽 Instant Value: All basic tools included and configured:
+Proposal Stage. Any feedback is appreciated on the Issues page with the tag `feedback`.
 
-- [TypeScript][typescript] [5.0][typescript-5-0]
-- [ESM][esm]
-- [ESLint][eslint] with some initial rules recommendation
-- [Jest][jest] for fast unit testing and code coverage
-- Type definitions for Node.js and Jest
-- [Prettier][prettier] to enforce consistent code style
-- NPM [scripts](#available-scripts) for common operations
-- [EditorConfig][editorconfig] for consistent coding style
-- Reproducible environments thanks to [Volta][volta]
-- Example configuration for [GitHub Actions][gh-actions]
-- Simple example of TypeScript code and unit test
+## Examples
 
-🤲 Free as in speech: available under the APLv2 license.
+### Supports Permutations
 
-## Getting Started
-
-This project is intended to be used with the latest Active LTS release of [Node.js][nodejs].
-
-### Use as a repository template
-
-To start, just click the **[Use template][repo-template-action]** link (or the green button). Start adding your code in the `src` and unit tests in the `__tests__` directories.
-
-### Clone repository
-
-To clone the repository, use the following commands:
-
-```sh
-git clone https://github.com/jsynowiec/node-typescript-boilerplate
-cd node-typescript-boilerplate
-npm install
+```
+(?perm(,):apple,pear,blueberry)
 ```
 
-### Download latest release
+transpiles to
 
-Download and unzip the current **main** branch or one of the tags:
-
-```sh
-wget https://github.com/jsynowiec/node-typescript-boilerplate/archive/main.zip -O node-typescript-boilerplate.zip
-unzip node-typescript-boilerplate.zip && rm node-typescript-boilerplate.zip
+```
+ap{2}le,(?:pear,blueber{2}y|blueber{2}y,pear)|pear(?:ap{2}le,blueber{2}y|blueber{2}y,ap{2}le)|blueber{2}y(?:ap{2}le,pear|pear,ap{2}le)
 ```
 
-## Available Scripts
+### base64
 
-- `clean` - remove coverage data, Jest cache and transpiled files,
-- `prebuild` - lint source files and tests before building,
-- `build` - transpile TypeScript to ES6,
-- `build:watch` - interactive watch mode to automatically transpile source files,
-- `lint` - lint source files and tests,
-- `prettier` - reformat files,
-- `test` - run tests,
-- `test:watch` - interactive watch mode to automatically re-run tests
+```
+\#base64#*
+```
 
-## Additional Information
+transpiles to
 
-### Why include Volta
+```
+(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}(?:==|[A-Za-z0-9+/]=))?
+```
 
-[Volta][volta]’s toolchain always keeps track of where you are, it makes sure the tools you use always respect the settings of the project you’re working on. This means you don’t have to worry about changing the state of your installed software when switching between projects. For example, it's [used by engineers at LinkedIn][volta-tomdale] to standardize tools and have reproducible development environments.
+---
 
-I recommend to [install][volta-getting-started] Volta and use it to manage your project's toolchain.
+```
+\#base64#+
+```
 
-### ES Modules
+transpiles to
 
-This template uses native [ESM][esm]. Make sure to read [this][nodejs-esm], and [this][ts47-esm] first.
+```
+(?:[A-Za-z0-9+/]{4})*?:[A-Za-z0-9+/]{2}(?:==|[A-Za-z0-9+/](?:=|[A-Za-z0-9+/])))?
+```
 
-If your project requires CommonJS, you will have to [convert to ESM][sindresorhus-esm].
+---
 
-Please do not open issues for questions regarding CommonJS or ESM on this repo.
+```
+\#base64#{1,2}
+```
 
-## Backers & Sponsors
+transpiles to
 
-Support this project by becoming a [sponsor][sponsor].
+```
+(?:[A-Za-z0-9+/]{4}){0,1}(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{4})
+```
 
-## License
+---
 
-Licensed under the APLv2. See the [LICENSE](https://github.com/jsynowiec/node-typescript-boilerplate/blob/main/LICENSE) file for details.
+```
+\#b64-char#
+```
 
-[ts-badge]: https://img.shields.io/badge/TypeScript-5.0-blue.svg
-[nodejs-badge]: https://img.shields.io/badge/Node.js->=%2018.12-blue.svg
-[nodejs]: https://nodejs.org/dist/latest-v18.x/docs/api/
-[gha-badge]: https://github.com/jsynowiec/node-typescript-boilerplate/actions/workflows/nodejs.yml/badge.svg
-[gha-ci]: https://github.com/jsynowiec/node-typescript-boilerplate/actions/workflows/nodejs.yml
-[typescript]: https://www.typescriptlang.org/
-[typescript-5-0]: https://devblogs.microsoft.com/typescript/announcing-typescript-5-0/
-[license-badge]: https://img.shields.io/badge/license-APLv2-blue.svg
-[license]: https://github.com/jsynowiec/node-typescript-boilerplate/blob/main/LICENSE
-[sponsor-badge]: https://img.shields.io/badge/♥-Sponsor-fc0fb5.svg
-[sponsor]: https://github.com/sponsors/jsynowiec
-[jest]: https://facebook.github.io/jest/
-[eslint]: https://github.com/eslint/eslint
-[wiki-js-tests]: https://github.com/jsynowiec/node-typescript-boilerplate/wiki/Unit-tests-in-plain-JavaScript
-[prettier]: https://prettier.io
-[volta]: https://volta.sh
-[volta-getting-started]: https://docs.volta.sh/guide/getting-started
-[volta-tomdale]: https://twitter.com/tomdale/status/1162017336699838467?s=20
-[gh-actions]: https://github.com/features/actions
-[repo-template-action]: https://github.com/jsynowiec/node-typescript-boilerplate/generate
-[esm]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules
-[sindresorhus-esm]: https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c
-[nodejs-esm]: https://nodejs.org/docs/latest-v16.x/api/esm.html
-[ts47-esm]: https://devblogs.microsoft.com/typescript/announcing-typescript-5-0/#esm-nodejs
-[editorconfig]: https://editorconfig.org
+transpiles to
+
+```
+[A-Za-z0-9+/]
+```
+
+### if-behind far-else
+
+```
+(if-behind<tag>(cond):xxx)[a-z]+(else<tag>:xxx)
+```
+
+transpiles to
+
+```
+(?:(?!cond)xxx[a-z]+|[a-z]+xxx)
+```
+
+## Features
+
+- "Batteries-included" (in a yaml file)
+  - modifiers e.g. permutation modifier `(?perm(<delimiter>):`, case-insensitive flag (not in JS), S flag (not in JS),
+  - classes e.g. \#b64#, \#b64-char#, \#hex#, \#oct#, \#bound# = `(?:_|\b)`
+  - syntactic sugars e.g. `(?ahead:), (?behind:), (?ahead-neg:), (?behind-neg:)
+- Supports Custom YAML file
+  - building your own classes and modifiers for reuse
+  - (optional) create your own exportable regex expressions with automated test cases testing, that can also use your own custom classes and modifiers within
+  - Choose to import or not "batteries-included" yaml file
+  - Choose to import only certain "batteries-included" variables
+- Supports command line transpiler
+
+## Architecture
+
+Modules:
+
+- Argparser for CLI transpiler
+- Transpiler
+  - transpiles the Customs
+  - gets parsed file
+  - Tokenizer
+    - tokenize based on file
+  - Parser
+    - parse based on file
+  - Error handling
+    - handling wrong regexes
+      - error message should be based on built expression
+- Code Generator
+  - generates Variables, have to make use of the Customs
+  - ability to add custom prefix (no prefix added if none specified)
+  - generates in target language (rust and js first)
+    - generates in /generated with the yaml file copied and the revice-gen.rs
+- File Reader
+  - check correct yaml file
+  - convert to json
+
+YAML file:
+
+- Customs
+- Variables
